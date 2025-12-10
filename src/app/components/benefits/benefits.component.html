@@ -1,0 +1,56 @@
+<!-- 
+  This container's height determines how much vertical scroll is needed to move all cards horizontally.
+  A larger height means a slower, more spaced-out horizontal scroll.
+-->
+<section #pinContainer class="relative h-[400vh]">
+  <!-- This div sticks to the viewport while the parent section scrolls past. -->
+  <div class="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
+    
+    <!-- Title is positioned absolutely within the sticky container -->
+    <div #titleGroup class="absolute top-32 md:top-40 text-center z-10 animate-fade-in-up group">
+      <h2 
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-white dark:text-gray-100 flex justify-center cursor-default"
+        (mouseleave)="onTitleLeave()">
+        @for (letter of titleLetters(); track $index) {
+          @if (letter.char === ' ') {
+            <span class="inline-block w-4"></span>
+          } @else {
+            <span 
+              class="letter inline-block transition-transform duration-300 ease-in-out"
+              (mouseenter)="onLetterHover($index)"
+              [style.transition-delay]="letter.delay">
+              {{ letter.char }}
+            </span>
+          }
+        }
+      </h2>
+      <p class="mt-4 text-lg text-green-200 dark:text-gray-400">Seven Pillars of a Healthier You</p>
+    </div>
+
+    <!-- 
+      The track contains all the cards and is moved horizontally.
+      Padding is added to ensure cards don't touch the screen edges.
+    -->
+    <div #track 
+         class="flex items-center gap-8 absolute top-1/2 -translate-y-1/2 px-[5vw]"
+         [style.transform]="'translateX(' + horizontalScroll() + 'px)'">
+      
+      @for (benefit of benefits(); track benefit.title; let i = $index) {
+        <div #benefitCard
+          class="group flex-shrink-0 w-80 h-[22rem] bg-green-900 dark:bg-gray-900 rounded-lg p-8 border border-green-800/50 dark:border-gray-800 flex flex-col items-center text-center transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-4 hover:scale-105"
+          [style.opacity]="cardStyles()[i]?.opacity">
+          
+          <div class="flex flex-col items-center h-full">
+            <div class="bg-green-500/20 text-green-300 dark:bg-gray-700/50 dark:text-gray-300 rounded-full p-4 mb-4 transition-all duration-300 group-hover:shadow-[0_0_15px_5px_rgba(52,211,153,0.3)] dark:group-hover:shadow-[0_0_15px_5px_rgba(255,255,255,0.1)]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+                <path [attr.d]="benefit.icon"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white dark:text-gray-100 mb-2">{{ benefit.title }}</h3>
+            <p class="text-green-300 dark:text-gray-400 flex-grow">{{ benefit.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

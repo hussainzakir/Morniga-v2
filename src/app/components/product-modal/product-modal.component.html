@@ -1,0 +1,97 @@
+@if (product()) {
+  <div 
+    (click)="closeModal()"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-green-950 dark:bg-black bg-opacity-70 dark:bg-opacity-70 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
+    [class.opacity-100]="isVisible()"
+    [class.opacity-0]="!isVisible()">
+    
+    <div 
+      (click)="onModalClick($event)"
+      class="bg-green-900 dark:bg-gray-900 text-white dark:text-gray-200 rounded-lg shadow-2xl w-11/12 max-w-4xl max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-in-out flex flex-col md:flex-row"
+      [class.scale-100]="isVisible()"
+      [class.opacity-100]="isVisible()"
+      [class.scale-95]="!isVisible()"
+      [class.opacity-0]="!isVisible()">
+
+      <!-- Image Column -->
+      <div class="relative md:w-1/2 h-64 md:h-auto overflow-hidden">
+        <div class="transform transition-transform duration-500 ease-out h-full"
+             [class.translate-x-0]="isVisible()"
+             [class.-translate-x-full]="!isVisible()">
+          <img [src]="product()?.imageUrl" [alt]="product()?.name" class="w-full h-full object-cover grayscale" />
+          <div class="absolute inset-0 bg-green-950/30 dark:bg-black/30"></div>
+        </div>
+      </div>
+
+      <!-- Content Column -->
+      <div class="md:w-1/2 p-8 flex flex-col overflow-y-auto transform transition-transform duration-500 ease-out"
+           [style.transition-delay]="'100ms'"
+           [class.translate-x-0]="isVisible()"
+           [class.translate-x-full]="!isVisible()">
+        
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-3xl font-bold mb-1 text-white dark:text-gray-100">{{ product()?.name }}</h2>
+            <p class="text-sm font-medium text-green-200 dark:text-gray-300 bg-green-900/50 dark:bg-gray-800/50 inline-block px-2 py-1 rounded">{{ product()?.type }}</p>
+          </div>
+          <button (click)="closeModal()" class="text-green-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-100 transition-colors flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <p class="mt-4 text-green-200 dark:text-gray-300 flex-grow">{{ product()?.description }}</p>
+        
+        <div class="mt-6 pt-6 border-t border-green-800 dark:border-gray-800 flex flex-col sm:flex-row gap-6 justify-between items-center">
+          <span class="text-3xl font-bold text-white dark:text-gray-100 order-1 sm:order-none">${{ product()?.price }}</span>
+          
+          <div class="flex items-center space-x-4 order-2 sm:order-none">
+            <div class="flex items-center rounded-lg bg-green-800/50 dark:bg-gray-800/50 border border-green-700 dark:border-gray-700">
+              <button (click)="decrement()" 
+                      [disabled]="quantity() === 1"
+                      class="px-3 py-2 text-white dark:text-gray-200 transition-colors duration-200 rounded-l-md hover:bg-green-700 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" /></svg>
+              </button>
+              <span class="px-4 py-1.5 font-bold text-lg text-white dark:text-gray-100 tabular-nums w-16 text-center">{{ quantity() }}</span>
+              <button (click)="increment()" 
+                      class="px-3 py-2 text-white dark:text-gray-200 transition-colors duration-200 rounded-r-md hover:bg-green-700 dark:hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <button (click)="onAddToCart()" 
+                  class="relative overflow-hidden w-full sm:w-48 h-12 bg-green-600 dark:bg-gray-200 text-white dark:text-black font-bold rounded-lg hover:bg-green-500 dark:hover:bg-white transform hover:scale-105 transition-all duration-300 flex items-center justify-center flex-shrink-0"
+                  [class.bg-green-500]="animationState() === 'animating'"
+                  [class.dark:bg-white]="animationState() === 'animating'"
+                  [disabled]="animationState() === 'animating'">
+            
+            <span class="transition-all duration-500 ease-in-out"
+                  [class.opacity-0]="animationState() === 'animating'"
+                  [class.transform]="animationState() === 'animating'"
+                  [class.translate-x-20]="animationState() === 'animating'">
+              Add to Cart
+            </span>
+          
+            <span class="absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out"
+                  [class.opacity-100]="animationState() === 'animating'"
+                  [class.transform]="animationState() === 'animating'"
+                  [class.translate-x-0]="animationState() === 'animating'"
+                  [class.opacity-0]="animationState() === 'idle'"
+                  [class.-translate-x-20]="animationState() === 'idle'">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+            </span>
+          
+            @if(animationState() === 'animating') {
+              <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-white/30 dark:bg-black/30 rounded-full animate-ripple">
+              </span>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

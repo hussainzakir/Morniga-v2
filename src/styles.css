@@ -1,0 +1,117 @@
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(-1%, 1%); }
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+@keyframes pan-bg {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes ripple {
+  to {
+    transform: scale(40);
+    opacity: 0;
+  }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes draw-in {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Font utility classes */
+.font-fancy {
+  font-family: 'Playfair Display', serif;
+}
+.font-body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #064e3b; /* Dark Green */
+}
+.dark ::-webkit-scrollbar-track {
+  background: #111827; /* Dark Gray for dark theme */
+}
+::-webkit-scrollbar-thumb {
+  background: #10b981; /* Lighter Green */
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563; /* Gray for dark theme */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Animation utility classes */
+.animate-fade-in-down { animation: fade-in-down 0.8s ease-out forwards; }
+.animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+.animate-pop-in { opacity: 0; animation: pop-in 0.6s ease-out forwards; }
+.animate-ken-burns { animation: ken-burns 15s ease-in-out infinite alternate; }
+.shake { animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both; }
+.animate-fall { animation: fall 1.5s ease-in forwards; }
+.animate-gentle-bounce { animation: gentle-bounce 0.6s ease-in-out; }
+.animate-pan-bg {
+  background-image: url('https://picsum.photos/seed/tea-plantation/1200/800');
+  background-size: 200% auto;
+  animation: pan-bg 20s linear infinite alternate;
+}
+.animate-ripple {
+  animation: ripple 0.7s linear;
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-pulse-grow {
+  animation: pulse-grow 3s ease-in-out infinite;
+}
+.animate-draw-in {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-in 1s ease-out forwards;
+}
+
+/* Class to trigger the letter wave animation */
+.is-animating .letter {
+  transform: scale(1.25);
+}

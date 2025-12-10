@@ -1,0 +1,27 @@
+<button 
+  (click)="toggleTheme()"
+  class="relative w-14 h-7 rounded-full bg-green-800/50 dark:bg-gray-700 flex items-center p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-950 dark:focus:ring-offset-black focus:ring-green-500 dark:focus:ring-white"
+  aria-label="Toggle theme">
+  
+  <!-- Sun Icon for Green Theme -->
+  <div class="absolute left-1 transition-transform duration-300 ease-in-out" 
+       [class.translate-x-0]="themeService.theme() === 'green'"
+       [class.-translate-x-8]="themeService.theme() === 'dark'"
+       [class.opacity-100]="themeService.theme() === 'green'"
+       [class.opacity-0]="themeService.theme() === 'dark'">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-300" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 001.414 1.414l.707-.707a1 1 0 00-1.414-1.414l-.707.707zm-2.121-2.121a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" clip-rule="evenodd" />
+    </svg>
+  </div>
+
+  <!-- Moon Icon for Dark Theme -->
+  <div class="absolute right-1 transition-transform duration-300 ease-in-out" 
+       [class.translate-x-0]="themeService.theme() === 'dark'"
+       [class.translate-x-8]="themeService.theme() === 'green'"
+       [class.opacity-100]="themeService.theme() === 'dark'"
+       [class.opacity-0]="themeService.theme() === 'green'">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+    </svg>
+  </div>
+</button>

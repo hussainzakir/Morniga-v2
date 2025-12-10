@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-green-950 text-white dark:bg-black dark:text-gray-200 flex flex-col transition-colors duration-300">
+  <app-navbar 
+    [cartItemCount]="cartItemCount()" 
+    (authModalRequest)="onOpenAuthModal()" 
+    (contactModalRequest)="onOpenContactModal()">
+  </app-navbar>
+
+  <main class="flex-grow">
+    <app-carousel></app-carousel>
+    <app-product-list (productSelected)="onProductSelected($event)"></app-product-list>
+    <app-benefits></app-benefits>
+    <app-about></app-about>
+  </main>
+
+  <app-footer></app-footer>
+
+  @if (selectedProduct()) {
+    <app-product-modal 
+      [product]="selectedProduct()" 
+      (close)="onCloseModal()"
+      (addToCart)="onAddToCart($event)">
+    </app-product-modal>
+  }
+
+  @if (authModalVisible()) {
+    <app-auth-modal (close)="onCloseAuthModal()"></app-auth-modal>
+  }
+
+  @if (contactModalVisible()) {
+    <app-contact (close)="onCloseContactModal()"></app-contact>
+  }
+</div>
